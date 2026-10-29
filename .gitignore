@@ -1,0 +1,13 @@
+# Obsidian: persönliche Ansicht und Papierkorb
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/workspaces.json
+.trash/
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Office-Sperrdateien
+~$*
