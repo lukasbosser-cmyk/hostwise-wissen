@@ -34,7 +34,7 @@ Das „Gehirn“ von hostwise: ein Dashboard, in dem alle KI-Agenten sichtbar si
 
 - **Login:** nur die drei Admins (E-Mail und Passwort). Oskar und Maximilian brauchen noch ein Konto, das Lukas im Supabase-Dashboard anlegt.
 - **Freigaben und Aktivität** kommen live aus Supabase.
-- **Agenten-Einstellungen** (Pause, Selbstständigkeit, Leitplanken, Wissen, Anbinden) werden gespeichert und erscheinen bei allen Admins ohne Neuladen. Liegt in Pull Request #2, noch nicht übernommen.
+- **Agenten-Einstellungen** (Pause, Selbstständigkeit, Leitplanken, Wissen, Anbinden) werden gespeichert und erscheinen bei allen Admins ohne Neuladen. Seit Pull Request #2 (29.10.2026) in der engine.
 - **Report-Agent** in n8n: Formular „Kurz-Check“ → Anfrage in Supabase → Claude schreibt den Kurz-Check → wartet in der engine unter „Freigaben“. Er liest die Leitplanken aus der engine bei jedem Durchlauf neu. Der Ablauf ist gebaut und getestet, aber noch nicht veröffentlicht.
 - **Firecrawl** ist in n8n angebunden und getestet. Nächster Schritt: Scraping-Agent, der Marktdaten pro Region sammelt (siehe [[Marktdaten-Anbieter]]).
 

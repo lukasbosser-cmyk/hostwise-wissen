@@ -35,10 +35,10 @@ Bis zum Demonstrator muss ein Vermieter einen Kurz-Check anfordern können, den 
 | --- | --- | --- |
 | M1 | Nur unsere drei Admins kommen mit E-Mail und Passwort in die engine | umgesetzt |
 | M2 | Das Cockpit zeigt Kennzahlen, alle Agenten im Engine-Kern, Live-Aktivität und offene Freigaben | in Arbeit |
-| M3 | Status, Selbstständigkeit, Leitplanken und Wissensquellen jedes Agenten werden in der Datenbank gespeichert | in Arbeit |
+| M3 | Status, Selbstständigkeit, Leitplanken und Wissensquellen jedes Agenten werden in der Datenbank gespeichert | umgesetzt |
 | M4 | Jeder Report wartet auf eine menschliche Freigabe, bevor er rausgeht (Beta-Regel) | umgesetzt |
 | M5 | Der Report-Agent macht aus dem Formular einen Kurz-Check und legt ihn zur Freigabe ab | umgesetzt |
-| M6 | Der Report-Agent hält sich an die Leitplanken, die das Team in der engine pflegt | in Arbeit |
+| M6 | Der Report-Agent hält sich an die Leitplanken, die das Team in der engine pflegt | umgesetzt |
 | M7 | Ein freigegebener Kurz-Check geht per E-Mail an den Vermieter | geplant |
 | M8 | Neue Freigaben und Aktivitäten erscheinen ohne Neuladen | umgesetzt |
 | M9 | Alle Texte auf Deutsch, in einfacher Sprache und im hostwise-CI | umgesetzt |
@@ -98,7 +98,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 26 Funktionen sind 15 umgesetzt, 8 in Arbeit und 3 geplant. „In Arbeit“ heißt meist: Die Funktion ist klickbar, speichert aber noch nicht in der Datenbank.
+Von 26 Funktionen sind 22 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
@@ -110,27 +110,27 @@ Von 26 Funktionen sind 15 umgesetzt, 8 in Arbeit und 3 geplant. „In Arbeit“ 
 | F23 | Cockpit | „Wartet auf dich“: die nächsten offenen Freigaben | umgesetzt |
 | F24 | Cockpit | Hinweis bei jeder neuen Freigabe, Zähler in der Seitenleiste | umgesetzt |
 | F30 | Agenten | Übersicht aller Agenten mit Filter: alle, aktiv, im Training, pausiert, verfügbar | umgesetzt |
-| F31 | Agenten | Agent pausieren und wieder starten | in Arbeit |
-| F32 | Training | Selbstständigkeit wählen: nur vorschlagen, mit Freigabe, selbstständig | in Arbeit |
-| F33 | Training | Leitplanken ein- und ausschalten, z. B. „Rechenweg offenlegen“ | in Arbeit |
-| F34 | Training | Wissensquelle hinzufügen (Link, Dokument, Notiz) | in Arbeit |
-| F35 | Agenten | Neuen Agenten in drei Schritten anbinden | in Arbeit |
+| F31 | Agenten | Agent pausieren und wieder starten | umgesetzt |
+| F32 | Training | Selbstständigkeit wählen: nur vorschlagen, mit Freigabe, selbstständig | umgesetzt |
+| F33 | Training | Leitplanken ein- und ausschalten, z. B. „Rechenweg offenlegen“ | umgesetzt |
+| F34 | Training | Wissensquelle hinzufügen (Link, Dokument, Notiz) | umgesetzt |
+| F35 | Agenten | Neuen Agenten in drei Schritten anbinden | umgesetzt |
 | F36 | Training | Ergebnisse mit gut oder schlecht bewerten, damit der Agent daraus lernt | geplant |
 | F40 | Freigaben | Liste aller offenen Ergebnisse mit Vorschau des Reports | umgesetzt |
 | F41 | Freigaben | Freigeben oder zurückgeben; Name und Zeitpunkt werden gespeichert | umgesetzt |
 | F42 | Freigaben | Jede Entscheidung erscheint als Aktivität im Cockpit | umgesetzt |
 | F43 | Freigaben | Freigegebener Kurz-Check geht automatisch per E-Mail an den Vermieter | geplant |
-| F50 | Wissen | Alle Wissensquellen aller Agenten an einem Ort | in Arbeit |
+| F50 | Wissen | Alle Wissensquellen aller Agenten an einem Ort | umgesetzt |
 | F60 | Bedienung | Schnellsuche nach Seiten und Agenten mit Strg+K | umgesetzt |
 | F70 | Report-Agent | Öffentliches Formular „Kurz-Check anfordern“ im hostwise-Design | umgesetzt |
 | F71 | Report-Agent | Anfrage wird als Lead in der Datenbank gespeichert | umgesetzt |
 | F72 | Report-Agent | Claude schreibt den Kurz-Check: Saisonpreise, Marktvergleich, höchstens drei Tipps | umgesetzt |
-| F73 | Report-Agent | Der Agent liest seine Leitplanken aus der engine, bevor er schreibt | in Arbeit |
+| F73 | Report-Agent | Der Agent liest seine Leitplanken aus der engine, bevor er schreibt | umgesetzt |
 | F74 | Report-Agent | Kurz-Check landet als Freigabe in der engine und meldet sich im Live-Feed | umgesetzt |
 | F80 | Einstellungen | Team, Benachrichtigungen und Zugänge verwalten | geplant |
 
 > [!note] Stand 29.10.2026, abends
-> F31 bis F35, F50 und F73 sind gebaut und warten im [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) auf den Merge.
+> F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
 
 ## 5 Produktdaten (Datenmodell)
 
