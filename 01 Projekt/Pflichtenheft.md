@@ -98,7 +98,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 29 Funktionen sind 25 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
+Von 30 Funktionen sind 26 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
@@ -130,6 +130,7 @@ Von 29 Funktionen sind 25 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nu
 | F75 | Report-Agent | Kurz-Check rechnet mit echten Marktdaten der Region: Preise je Saison, Vergleich mit gleich vielen Schlafzimmern, Großveranstaltungen | umgesetzt |
 | F76 | Marktdaten-Agent | Liest pro Region und Saison ein Wochenende auf Airbnb und Booking.com, speichert Kennzahlen und anonyme Einzelangebote als Archiv; monatlich und auf Abruf des Report-Agenten | umgesetzt |
 | F77 | Marktdaten | Seite „Marktdaten“: Preise je Saison und Portal, Großveranstaltungen, Ausstattung; Regionen aufnehmen und pausieren | umgesetzt |
+| F78 | Daten | Seite „Daten“: alle Tabellen in Supabase ansehen und durchsuchen, erlaubte Felder ändern, Einträge mit Rückfrage löschen, als CSV herunterladen | umgesetzt |
 | F80 | Einstellungen | Team, Benachrichtigungen und Zugänge verwalten | geplant |
 
 > [!note] Stand 29.10.2026, abends
@@ -199,7 +200,9 @@ Die engine hat fünf Seiten plus Login; jede wichtige Handlung ist von der Start
 | Agenten | `/agenten` | Alle Agenten filtern, neue Agenten anbinden |
 | Agent | `/agenten/[id]` | Reiter Überblick, Training, Verbindungen, Verlauf; pausieren, Selbstständigkeit, Leitplanken, Wissen |
 | Freigaben | `/freigaben` | Ergebnisse lesen, freigeben oder zurückgeben |
+| Marktdaten | `/marktdaten` | Preise je Saison und Portal, Großveranstaltungen und Ausstattung pro Region; Regionen aufnehmen und pausieren |
 | Wissen | `/wissen` | Alle Wissensquellen an einem Ort |
+| Daten | `/daten` | Alle Tabellen in Supabase ansehen, korrigieren, Testzeilen löschen, CSV herunterladen |
 | Einstellungen | `/einstellungen` | Platzhalter für Team und Benachrichtigungen |
 
 **Bedienprinzipien**
