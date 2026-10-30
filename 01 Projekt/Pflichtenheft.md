@@ -320,7 +320,7 @@ Nach dem Pitch folgen laut Kursplan Business Model mit Go/No-Go am 12.01.2027 un
 
 - [x] Workflow „Report-Agent“ in n8n veröffentlichen, damit das Formular dauerhaft erreichbar ist
 - [x] Workflow „Vertriebs-Agent“ in n8n veröffentlichen, damit er jeden Morgen läuft
-- [ ] Workflow „Report-Agent (Quick-Check, Komplett-Analyse, Monitor)“ in n8n veröffentlichen, damit die drei Bestellformulare erreichbar sind
+- [x] Workflow „Report-Agent (Quick-Check, Komplett-Analyse, Monitor)“ in n8n veröffentlichen, damit die drei Bestellformulare erreichbar sind
 - [ ] Preis des Monitors festlegen: 39 € im Monat oder ein Jahrespreis
 - [ ] Meta Business-Konto mit Werbekonto anlegen, damit der Vertriebs-Agent freigegebene Anzeigen schalten kann (F83)
 - [ ] Login-Konten für Oskar und Maximilian im Supabase-Dashboard anlegen
