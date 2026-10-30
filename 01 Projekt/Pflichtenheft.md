@@ -140,7 +140,7 @@ Von 34 Funktionen sind 29 umgesetzt, 1 in Arbeit und 4 geplant. In Arbeit ist nu
 | F85 | Report-Agent | Rechenkern in Supabase rechnet alle Zahlen des Reports: Empfehlung je Saison, Mehrertrag, Ertragslücke zum Markt, Veranstaltungen, Ausstattung; Claude schreibt nur den Text | umgesetzt |
 | F86 | Report-Agent | Prüfung vor der Freigabe: alle Kapitel des Produkts vorhanden, jeder Euro-Betrag stammt aus dem Rechenkern, keine E-Mail-Adressen; Auffälligkeiten stehen in der Freigabe | umgesetzt |
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
-| F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
+| F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design mit Grafiken (Kennzahlen, Preise je Saison, Jahresertrag, Veranstaltungen, Ausstattung, Portale), als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
 
 > [!note] Stand 29.10.2026, abends
