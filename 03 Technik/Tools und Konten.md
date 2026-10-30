@@ -40,4 +40,12 @@ Siehe [[README]] auf der Startseite. Kurz: Repo mit GitHub Desktop klonen, in Ob
 
 ## Hosting
 
-Später Netlify. Der kostenlose Tarif von Vercel ist nur für nicht-kommerzielle Projekte gedacht.
+Die engine läuft auf **Netlify** (kostenloser Tarif). Netlify ist mit dem GitHub-Repo `hostwisedemo` verbunden und baut bei jedem Merge auf `main` automatisch neu; für jeden Pull Request gibt es eine eigene Vorschau-Adresse. Die Einstellungen stehen in `netlify.toml` im Repo.
+
+- Die beiden Supabase-Werte (Adresse und öffentlicher Schlüssel, siehe `.env.example`) stehen im Netlify-Dashboard unter *Site configuration → Environment variables*. Fehlen sie, zeigt die Online-Version nur den Demo-Modus.
+- In Supabase steht die Netlify-Adresse unter *Authentication → URL Configuration* als Site URL.
+- Warum nicht GitHub Pages: Pages zeigt nur fertige Dateien an. Die engine braucht aber einen Server, der bei jedem Aufruf den Login prüft.
+- Warum nicht Vercel: Der kostenlose Tarif ist nur für nicht-kommerzielle Projekte gedacht.
+
+> [!info] Codespaces ist kein Hosting
+> In einem GitHub Codespace startet die engine mit `npm install` und `npm run dev` im Browser. Die Adresse gilt aber nur, solange der Codespace läuft (er schläft nach 30 Minuten ohne Nutzung ein). Zum schnellen Ausprobieren gut, als feste Adresse für Team und Pitch nicht.
