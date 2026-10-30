@@ -36,6 +36,7 @@ Das „Gehirn“ von hostwise: ein Dashboard, in dem alle KI-Agenten sichtbar si
 
 - **Login:** nur die drei Admins (E-Mail und Passwort). Oskar und Maximilian brauchen noch ein Konto, das Lukas im Supabase-Dashboard anlegt.
 - **Freigaben und Aktivität** kommen live aus Supabase.
+- **Kennzahlen im Cockpit** zählt seit 30.10.2026 die Datenbank (Funktion `cockpit_kpis`): Reports seit Montag (davon freigegeben), offene Freigaben (mit der ältesten), Leads der letzten 7 Tage (davon heiß) und das Werbebudget heute. Das Werbebudget zählt nur Anzeigen, die wirklich laufen; solange kein Meta-Werbekonto angebunden ist, steht dort 0 € und die Zahl der Vorschläge. Die Begrüßung nennt den angemeldeten Admin beim Namen.
 - **Agenten-Einstellungen** (Pause, Selbstständigkeit, Leitplanken, Wissen, Anbinden) werden gespeichert und erscheinen bei allen Admins ohne Neuladen. Seit Pull Request #2 (29.10.2026) in der engine.
 - **Report-Agent** in n8n: Formular „Kurz-Check“ → Anfrage in Supabase → Claude schreibt den Kurz-Check → wartet in der engine unter „Freigaben“. Er liest die Leitplanken aus der engine bei jedem Durchlauf neu. Veröffentlicht seit 30.10.2026.
 - **Report-Agent** rechnet seit 30.10.2026 mit echten Marktdaten: Er ruft den Marktdaten-Agenten auf und bekommt Preise je Saison, den Vergleich mit gleich vielen Schlafzimmern und die Großveranstaltungen der Region. Das Formular fragt dafür optional nach der Zahl der Schlafzimmer.
