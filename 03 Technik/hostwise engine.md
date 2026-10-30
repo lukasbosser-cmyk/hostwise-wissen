@@ -25,7 +25,7 @@ Das „Gehirn“ von hostwise: ein Dashboard, in dem alle KI-Agenten sichtbar si
 | --- | --- |
 | Cockpit | Kennzahlen, animierte Agenten-Übersicht, Live-Aktivität, offene Freigaben |
 | Agenten | Alle Agenten mit Filter, Assistent zum Anbinden neuer Agenten |
-| Agent | Überblick, Training (Wissen, Leitplanken, Selbstständigkeit), Verbindungen, Verlauf |
+| Agent | Überblick, Training (Wissen, Leitplanken, Selbstständigkeit), Verbindungen, Verlauf; beim Vertrieb zusätzlich die eingeschätzten Anfragen und die Meta-Anzeigen |
 | Freigaben | Ergebnisse prüfen und freigeben oder zurückgeben |
 | Marktdaten | Preise je Saison von Airbnb und Booking.com, Großveranstaltungen und Ausstattung pro Region; Regionen aufnehmen oder pausieren |
 | Wissen | Alle Wissensquellen |
@@ -40,6 +40,7 @@ Das „Gehirn“ von hostwise: ein Dashboard, in dem alle KI-Agenten sichtbar si
 - **Report-Agent** in n8n: Formular „Kurz-Check“ → Anfrage in Supabase → Claude schreibt den Kurz-Check → wartet in der engine unter „Freigaben“. Er liest die Leitplanken aus der engine bei jedem Durchlauf neu. Veröffentlicht seit 30.10.2026.
 - **Report-Agent** rechnet seit 30.10.2026 mit echten Marktdaten: Er ruft den Marktdaten-Agenten auf und bekommt Preise je Saison, den Vergleich mit gleich vielen Schlafzimmern und die Großveranstaltungen der Region. Das Formular fragt dafür optional nach der Zahl der Schlafzimmer.
 - **Marktdaten-Agent** (n8n-Workflow „hostwise · Scraping-Agent (Marktdaten)“): liest pro Region und Saison ein Wochenende (Fr–So, 2 Gäste) auf Airbnb und Booking.com über Firecrawl, speichert Kennzahlen und anonyme Einzelangebote und sucht einmal im Monat die Großveranstaltungen. Läuft am 1. jedes Monats für alle aktiven Regionen und auf Abruf des Report-Agenten. Erste Region: Garmisch-Partenkirchen. Wie genau, steht in [[Marktdaten-Anbieter]].
+- **Vertriebs-Agent** (n8n-Workflow „hostwise · Vertriebs-Agent (Leads und Anzeigen)“, seit 30.10.2026): läuft jeden Morgen um 7 Uhr. Er schätzt jede neue Kurz-Check-Anfrage ein (heiß, warm oder kalt, passendes Produkt, Rückruf ja oder nein, mit Grund und nächstem Schritt) und schlägt einmal pro Woche 2–3 Meta-Anzeigen vor. Die Anzeigen nutzen die Einstiegsfragen aus seinem Wissen und Anlässe aus den Marktdaten, etwa Großveranstaltungen, und halten die Leitplanke „Tagesbudget höchstens 40 €“ ein. Sie landen unter „Freigaben“; geschaltet wird erst, wenn ein Meta-Werbekonto angebunden ist. Claude bekommt für die Einschätzung keine Namen und E-Mail-Adressen. Seit diesem Agenten lesen Agenten auch den Text ihrer Wissensquellen, nicht nur die Leitplanken.
 - **Daten** (Seite `/daten`): Admins sehen alle Tabellen in Supabase, können darin suchen, Tippfehler korrigieren, Testzeilen löschen und alles als CSV herunterladen. Gelöscht wird erst nach einer Rückfrage, die auch sagt, was mit verschwindet (eine Region nimmt ihre Kennzahlen, Angebote und Veranstaltungen mit). Nur lesen lassen sich Agenten (Einstellungen auf der Agenten-Seite), anonyme Einzelangebote und Admins (neue Admins im Supabase-Dashboard). Freigeben oder Zurückgeben geht weiter nur über „Freigaben“, damit festgehalten wird, wer entschieden hat.
 
 ## Regeln für den Bau

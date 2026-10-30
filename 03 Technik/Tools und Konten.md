@@ -1,6 +1,6 @@
 ---
 tags: [technik, konten, werkzeuge]
-stand: 2026-10-29
+stand: 2026-10-30
 ---
 
 # Tools und Konten
@@ -18,6 +18,7 @@ Welche Werkzeuge wir nutzen, wer Zugang hat und wo Schlüssel liegen.
 | Firecrawl | Webseiten und Portale auslesen | Konto von Lukas, 1.000 Credits pro Monat kostenlos | nur n8n Credential |
 | Claude | Bauen, Schreiben, Agenten-KI | KI in n8n läuft über n8n-Guthaben, kein eigener Schlüssel | – |
 | Obsidian | Dieses Vault lesen und bearbeiten | Konto von Lukas | – |
+| Meta Business (Facebook, Instagram) | Anzeigen des Vertriebs-Agenten schalten | noch nicht angelegt; bis dahin schlägt der Agent Anzeigen nur vor | später nur n8n Credential |
 
 ## Supabase
 
@@ -30,7 +31,8 @@ Welche Werkzeuge wir nutzen, wer Zugang hat und wo Schlüssel liegen.
 - Supabase-Zugang: Credential „Supabase account“.
 - Firecrawl-Zugang: Credential vom Typ „Firecrawl API“. **Base URL muss `https://api.firecrawl.dev/v2` sein**, sonst meldet Firecrawl „Not Found“.
 - Test-Ablauf „hostwise · Firecrawl-Test“: eine Suche mit drei Treffern, kostet 2 Credits.
-- Report-Agent und Marktdaten-Agent (Workflow „hostwise · Scraping-Agent (Marktdaten)“): gebaut und getestet, warten auf Veröffentlichung im n8n-Editor.
+- Report-Agent und Marktdaten-Agent (Workflow „hostwise · Scraping-Agent (Marktdaten)“): veröffentlicht seit 30.10.2026.
+- Vertriebs-Agent (Workflow „hostwise · Vertriebs-Agent (Leads und Anzeigen)“): gebaut und getestet am 30.10.2026, wartet auf Veröffentlichung im n8n-Editor. Ein Lauf kostet nur KI-Guthaben, wenn es neue Anfragen gibt oder Anzeigen fällig sind.
 
 ## Obsidian und dieses Vault
 

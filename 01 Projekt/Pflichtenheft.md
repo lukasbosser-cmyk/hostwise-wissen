@@ -49,7 +49,7 @@ M2 ist in Arbeit, weil die Kennzahlen noch Beispielwerte sind.
 
 | Nr. | Kriterium | Stand |
 | --- | --- | --- |
-| W1 | Vertriebs-Agent schaltet Meta-Ads; jede Budgetänderung über 20 % braucht eine Freigabe | geplant |
+| W1 | Vertriebs-Agent schätzt Anfragen ein und schaltet Meta-Ads; jede Budgetänderung über 20 % braucht eine Freigabe | in Arbeit |
 | W2 | Marktdaten-Agent liest Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen über Firecrawl | umgesetzt |
 | W3 | Quick-Check für 29 € mit Bezahlung | geplant |
 | W4 | Agenten lernen aus den Bewertungen des Teams (gut oder schlecht) | geplant |
@@ -98,7 +98,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 30 Funktionen sind 26 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
+Von 34 Funktionen sind 29 umgesetzt, 1 in Arbeit und 4 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
@@ -131,32 +131,42 @@ Von 30 Funktionen sind 26 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nu
 | F76 | Marktdaten-Agent | Liest pro Region und Saison ein Wochenende auf Airbnb und Booking.com, speichert Kennzahlen und anonyme Einzelangebote als Archiv; monatlich und auf Abruf des Report-Agenten | umgesetzt |
 | F77 | Marktdaten | Seite „Marktdaten“: Preise je Saison und Portal, Großveranstaltungen, Ausstattung; Regionen aufnehmen und pausieren | umgesetzt |
 | F78 | Daten | Seite „Daten“: alle Tabellen in Supabase ansehen und durchsuchen, erlaubte Felder ändern, Einträge mit Rückfrage löschen, als CSV herunterladen | umgesetzt |
+| F79 | Vertriebs-Agent | Schätzt jede Kurz-Check-Anfrage ein: heiß, warm oder kalt, passendes Produkt, Rückruf ja oder nein, mit Grund und nächstem Schritt; jeden Morgen um 7 Uhr | umgesetzt |
 | F80 | Einstellungen | Team, Benachrichtigungen und Zugänge verwalten | geplant |
+| F81 | Vertriebs-Agent | Schlägt einmal pro Woche 2–3 Meta-Anzeigen vor (Text, Region, Zielgruppe, Anlass, Tagesbudget), hält die Tagesbudget-Leitplanke ein und legt sie zur Freigabe ab | umgesetzt |
+| F82 | Vertrieb | Seite des Vertriebs-Agenten zeigt die eingeschätzten Anfragen und die Anzeigen mit ihrem Stand, live | umgesetzt |
+| F83 | Vertriebs-Agent | Freigegebene Anzeigen über ein Meta-Werbekonto schalten und Ergebnisse zurückmelden | geplant |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
 
 ## 5 Produktdaten (Datenmodell)
 
-Alle Daten liegen in acht Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
+Alle Daten liegen in 14 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
 
 | Tabelle | Was sie speichert | Wichtige Felder | Hängt an |
 | --- | --- | --- | --- |
 | `admins` | Wer in die engine darf | E-Mail, Name | – |
 | `agents` | Alle Agenten | Name, Aufgabe, Symbol, Status (aktiv, training, pausiert, verfügbar), Selbstständigkeit (vorschlagen, freigabe, selbstständig), Trainingsstand 0–100; neu: Kennzahl, Verlauf, geändert am, geändert von | – |
 | `agent_connections` | Dienste, die ein Agent nutzt, z. B. Meta Ads | Name, Status (verbunden, fehlt, fehler) | `agents` |
-| `training_sources` | Wissen eines Agenten | Titel, Art (Dokument, Beispiel, Webseite, Daten), Link, angelegt am | `agents` |
+| `training_sources` | Wissen eines Agenten | Titel, Art (Dokument, Beispiel, Webseite, Daten), Link, Auszug zum Lesen (seit 0011: den liest der Agent bei jedem Lauf), angelegt am | `agents` |
 | `guardrails` | Leitplanken eines Agenten | Text, an/aus; neu: Reihenfolge, angelegt am | `agents` |
 | `leads` | Kurz-Check-Anfragen aus dem Formular, unverändert | Name, E-Mail, Ort, Art der Unterkunft, Preis pro Nacht, Inserat, Wunsch, Quelle | – |
 | `approvals` | Ergebnisse, die auf Freigabe warten | Titel, Kunde, Zusammenfassung, Volltext, Grund, Wert, Stand (offen, freigegeben, zurückgegeben), entschieden von, entschieden am | `agents`, `leads` |
 | `activity` | Live-Feed im Cockpit | Text, Zeitpunkt | `agents` |
+| `market_regions` | Regionen des Marktdaten-Agenten | Name, aktiv, angefragt von, zuletzt gelesen, Veranstaltungen geprüft | – |
+| `market_snapshots` | Kennzahlen eines Stichproben-Wochenendes je Portal und Saison | Preise (Mitte, Spanne), Bewertung, Ausstattung, ausgebucht | `market_regions` |
+| `market_offers` | Anonyme Einzelangebote | Preis auf 5 € und Größe auf 5 m² gerundet, Schlafzimmer, Bewertung | `market_snapshots` |
+| `market_events` | Großveranstaltungen | Name, Art, Datum, Größe, Quelle | `market_regions` |
+| `lead_assessments` | Einschätzung des Vertriebs-Agenten je Anfrage, nur intern | heiß, warm oder kalt, Produkt, Rückruf, Grund, nächster Schritt | `leads` |
+| `ad_campaigns` | Meta-Anzeigen des Vertriebs-Agenten | Überschrift, Text, Button, Region, Zielgruppe, Anlass, Tagesbudget, Laufzeit, Stand (Entwurf, freigegeben, zurückgegeben, läuft, beendet) | `approvals`, `market_regions` |
 
 **Zugriffsregeln**
 
 - Jede Tabelle hat Row Level Security: Lesen und Schreiben darf nur, wer mit einer E-Mail aus `admins` angemeldet ist (Prüfung über `is_admin()`).
 - n8n schreibt mit einem Server-Schlüssel, der nur in n8n hinterlegt ist. Im Code liegt nur der öffentliche Schlüssel.
-- Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen.
-- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen.
+- Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen.
+- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent.
 
 ## 6 Agenten-Architektur
 
@@ -179,7 +189,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Agent | Aufgabe | Auslöser | Stand |
 | --- | --- | --- | --- |
 | Report | Kurz-Check aus der Formular-Anfrage schreiben, später Quick-Check und Komplett-Analyse | Formular | umgesetzt |
-| Vertrieb | Meta-Ads schalten, Leads einschätzen, Rückrufe buchen | Zeitplan, neuer Lead | geplant |
+| Vertrieb | Anfragen einschätzen und Meta-Anzeigen vorschlagen; später Anzeigen schalten und Rückrufe buchen | Zeitplan (täglich 7 Uhr, Anzeigen einmal pro Woche) | in Arbeit |
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
@@ -244,7 +254,7 @@ Die engine besteht aus fünf fertigen Diensten, die wir nur verbinden; eigene Se
 | --- | --- | --- |
 | Next.js 16 mit React, Tailwind und Motion | Oberfläche der engine | Eigene Komponenten, keine weiteren UI-Bibliotheken |
 | Supabase | Datenbank, Login, Live-Updates | Projekt „hostwise“, Frankfurt, Gratis-Tarif |
-| n8n Cloud | Abläufe der Agenten | Workflows „hostwise · Report-Agent (Kurz-Check)“ und „hostwise · Scraping-Agent (Marktdaten)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
+| n8n Cloud | Abläufe der Agenten | Workflows „hostwise · Report-Agent (Kurz-Check)“, „hostwise · Scraping-Agent (Marktdaten)“ und „hostwise · Vertriebs-Agent (Leads und Anzeigen)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
 | Claude Sonnet 5.5 | Texte und Analysen der Agenten | Über das KI-Guthaben von n8n |
 | GitHub | Code und Änderungsvorschläge (Pull Requests) | Repo `hostwisedemo` |
 | Netlify | Hosting der engine | Geplant für den Demonstrator |
@@ -260,7 +270,7 @@ Claude Code liest dabei `CLAUDE.md` und hat über `.mcp.json` Zugriff auf Supaba
 
 ## 10 Abnahmekriterien und Testfälle
 
-Der Demonstrator ist abgenommen, wenn alle zwölf Tests bestanden sind; T7 bis T10 prüfen, was gerade noch entsteht.
+Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prüfen, was gerade noch entsteht, T13 ein Wunschkriterium.
 
 | Nr. | So testen wir | Erwartetes Ergebnis | Prüft | Ergebnis |
 | --- | --- | --- | --- | --- |
@@ -276,10 +286,11 @@ Der Demonstrator ist abgenommen, wenn alle zwölf Tests bestanden sind; T7 bis T
 | T10 | Kurz-Check aus T4 freigeben | Der Vermieter bekommt ihn per E-Mail | M7 | offen |
 | T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | offen |
 | T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | offen |
+| T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | offen |
 
 ## 11 Zeitplan und offene Punkte
 
-Bis zur Abnahme am 10.11. sollen die Agenten-Einstellungen in der Datenbank und der E-Mail-Versand stehen; danach folgen der Vertriebs-Agent und die Tests. Die Termine nach dem 10.11. sind ein Vorschlag.
+Bis zur Abnahme am 10.11. sollen die Agenten-Einstellungen in der Datenbank und der E-Mail-Versand stehen. Der Vertriebs-Agent schätzt seit dem 30.10. Anfragen ein und schlägt Anzeigen vor; danach folgen das Schalten der Anzeigen über Meta und die Tests. Die Termine nach dem 10.11. sind ein Vorschlag.
 
 ```mermaid
 gantt
@@ -292,7 +303,7 @@ gantt
   section Abnahme
   Abnahme Pflichtenheft          :crit, milestone, 2026-11-10, 0d
   section Demonstrator
-  Vertriebs-Agent, Hosting       :2026-11-11, 2026-11-27
+  Meta-Anzeigen schalten, Hosting :2026-11-11, 2026-11-27
   Tests und Pitch-Probe          :2026-11-30, 2026-12-04
   Demonstrator und Pitch         :milestone, 2026-12-08, 0d
 ```
@@ -301,12 +312,14 @@ Nach dem Pitch folgen laut Kursplan Business Model mit Go/No-Go am 12.01.2027 un
 
 **Offene Punkte**
 
-- [ ] Workflow „Report-Agent“ in n8n veröffentlichen, damit das Formular dauerhaft erreichbar ist
+- [x] Workflow „Report-Agent“ in n8n veröffentlichen, damit das Formular dauerhaft erreichbar ist
+- [ ] Workflow „Vertriebs-Agent“ in n8n veröffentlichen, damit er jeden Morgen läuft
+- [ ] Meta Business-Konto mit Werbekonto anlegen, damit der Vertriebs-Agent freigegebene Anzeigen schalten kann (F83)
 - [ ] Login-Konten für Oskar und Maximilian im Supabase-Dashboard anlegen
 - [ ] E-Mail-Versand nach der Freigabe bauen (M7): Absender-Adresse und Versanddienst festlegen
 - [ ] Datenschutzhinweis ins Formular aufnehmen und Löschfrist für Anfragen festlegen
 - [ ] Klären, ob die Verarbeitung von Kundendaten über n8n und Claude einen Vertrag zur Auftragsverarbeitung braucht und wie riskant das Auslesen von Airbnb und Booking.com ist (AGB, Datenbankrecht)
 - [ ] Kennzahlen im Cockpit aus echten Daten berechnen (M2)
-- [ ] Zwei Test-Anfragen „Monika Testkundin“ aus `leads` löschen
+- [x] Test-Anfragen „Monika Testkundin“ aus `leads` löschen
 
 Siehe auch: [[Entscheidungen]], [[Kursplan und Termine]], [[hostwise engine]].
