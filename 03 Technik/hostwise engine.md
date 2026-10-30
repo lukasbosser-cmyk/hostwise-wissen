@@ -14,6 +14,7 @@ Das „Gehirn“ von hostwise: ein Dashboard, in dem alle KI-Agenten sichtbar si
 | Was | Wo |
 | --- | --- |
 | Code | GitHub-Repo [hostwisedemo](https://github.com/lukasbosser-cmyk/hostwisedemo) (Next.js) |
+| Online-Version | Netlify, baut bei jedem Merge auf `main` neu (siehe [[Tools und Konten]]) |
 | Datenbank und Login | Supabase-Projekt „hostwise“ (Frankfurt) |
 | Agenten-Abläufe | n8n Cloud: [hostwise.app.n8n.cloud](https://hostwise.app.n8n.cloud) |
 | Webseiten auslesen | Firecrawl, nur über n8n |
