@@ -32,7 +32,8 @@ Welche Werkzeuge wir nutzen, wer Zugang hat und wo Schlüssel liegen.
 - Firecrawl-Zugang: Credential vom Typ „Firecrawl API“. **Base URL muss `https://api.firecrawl.dev/v2` sein**, sonst meldet Firecrawl „Not Found“.
 - Test-Ablauf „hostwise · Firecrawl-Test“: eine Suche mit drei Treffern, kostet 2 Credits.
 - Report-Agent und Marktdaten-Agent (Workflow „hostwise · Scraping-Agent (Marktdaten)“): veröffentlicht seit 30.10.2026.
-- Vertriebs-Agent (Workflow „hostwise · Vertriebs-Agent (Leads und Anzeigen)“): gebaut und getestet am 30.10.2026, wartet auf Veröffentlichung im n8n-Editor. Ein Lauf kostet nur KI-Guthaben, wenn es neue Anfragen gibt oder Anzeigen fällig sind.
+- Vertriebs-Agent (Workflow „hostwise · Vertriebs-Agent (Leads und Anzeigen)“): veröffentlicht seit 30.10.2026. Ein Lauf kostet nur KI-Guthaben, wenn es neue Anfragen gibt oder Anzeigen fällig sind.
+- Report-Agent für die bezahlten Produkte (Workflow „hostwise · Report-Agent (Quick-Check, Komplett-Analyse, Monitor)“): gebaut und getestet am 30.10.2026, wartet auf Veröffentlichung im n8n-Editor. Eine Komplett-Analyse braucht knapp zwei Minuten und nur KI-Guthaben; Firecrawl kostet sie nur, wenn für die Region eine Saison fällig ist.
 
 ## Obsidian und dieses Vault
 
