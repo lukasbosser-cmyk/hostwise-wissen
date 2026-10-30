@@ -1,6 +1,6 @@
 ---
 tags: [markt, daten, anbieter]
-stand: 2026-10-29
+stand: 2026-10-30
 ---
 
 # Marktdaten-Anbieter
@@ -9,10 +9,14 @@ Woher die Vergleichspreise und Belegungen für die Reports kommen. Seit dem 29.1
 
 ## Eigenes Auslesen (aktueller Weg)
 
-- **Werkzeug:** Firecrawl, angebunden in n8n (läuft seit 29.10.2026, siehe [[Tools und Konten]]).
-- **Was wir speichern:** Preise, belegte Tage, Ausstattung, Bewertungsschnitt, nur zusammengefasst pro Region.
-- **Was wir nicht speichern:** Gastgebernamen, Fotos von Personen, Bewertungstexte. Achtung: Suchergebnisse von Booking enthalten manchmal Sätze aus Gästebewertungen. Die werden vor dem Speichern entfernt.
-- **Kosten:** Firecrawl hat 1.000 Credits pro Monat kostenlos. Eine Suche mit drei Treffern kostet 2 Credits.
+- **Werkzeug:** Firecrawl, angebunden in n8n (siehe [[Tools und Konten]]). Der Marktdaten-Agent läuft seit 30.10.2026 (n8n-Workflow „hostwise · Scraping-Agent (Marktdaten)“).
+- **Wie gelesen wird:** Pro Region und Saison ein Stichproben-Wochenende (dritter Freitag im Januar, April, Juli und Oktober, Fr–So, 2 Gäste, nur ganze Unterkünfte), je einmal auf Airbnb und auf Booking.com. Aus der Suchseite werden nur Zahlen gelesen.
+- **Was wir speichern:** pro Region, Saison und Portal die Kennzahlen (mittlerer Preis pro Nacht und Spanne, Zahl der Angebote, Anteil ausgebucht, Bewertungsschnitt, Anteil gewerblicher Gastgeber, Ausstattungsanteile) und die einzelnen Angebote anonym: Preis auf 5 € und Größe auf 5 m² gerundet, Schlafzimmer, Bewertung (Entscheidung 30.10.2026).
+- **Was wir nicht speichern:** Gastgebernamen, Titel, Links, Fotos, Bewertungstexte, genaue Lage, Zahl der Bewertungen. Erfolgreiche Läufe speichern auch in n8n keine Seiteninhalte.
+- **Archiv:** Jede Saison einer Region wird einmal im Jahr gelesen, nur die nächste anstehende Saison (in den nächsten 120 Tagen) monatlich. So entsteht ein Vorjahresvergleich.
+- **Großveranstaltungen:** einmal im Monat sucht der Agent Veranstaltungsseiten der Region (Firecrawl-Suche, 3 Seiten) und Claude liest die Großveranstaltungen der nächsten 12 Monate heraus: Name, Datum, Art, Größe, Quelle.
+- **Kosten:** 1 Credit pro Suchseite, also 2 Credits je Saison und Region; die Veranstaltungssuche etwa 5 Credits im Monat. Eine neue Region kostet beim ersten Mal etwa 13 Credits, danach etwa 7 im Monat.
+- **Erster Lauf (30.10.2026, Garmisch-Partenkirchen):** 162 Vergleichsangebote, mittlerer Preis pro Nacht auf Airbnb 135–160 €, auf Booking.com 159–214 € je nach Saison; auf Booking.com sind die Stichproben-Wochenenden schon zu 85–90 % ausgebucht. 10 Großveranstaltungen, darunter Neujahrsskispringen und Ski-Weltcup.
 - **Risiko:** AGB der Plattformen, Datenbankrecht, DSGVO. Bewusst in Kauf genommen und durch Datensparsamkeit begrenzt. Vor dem Launch rechtlich prüfen lassen.
 
 ## Anbieter mit Schnittstelle

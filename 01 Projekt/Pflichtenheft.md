@@ -1,13 +1,13 @@
 ---
 tags: [projekt, pflichtenheft]
-stand: 2026-10-29
+stand: 2026-10-30
 abnahme: 2026-11-10
 ---
 
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 29.10.2026. Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 30.10.2026. Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -50,7 +50,7 @@ M2 ist in Arbeit, weil die Kennzahlen noch Beispielwerte sind.
 | Nr. | Kriterium | Stand |
 | --- | --- | --- |
 | W1 | Vertriebs-Agent schaltet Meta-Ads; jede Budgetänderung über 20 % braucht eine Freigabe | geplant |
-| W2 | Marktdaten-Agent liest Preise und Belegung von Airbnb, Booking.com und Tourismus-Seiten über Firecrawl | geplant |
+| W2 | Marktdaten-Agent liest Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen über Firecrawl | umgesetzt |
 | W3 | Quick-Check für 29 € mit Bezahlung | geplant |
 | W4 | Agenten lernen aus den Bewertungen des Teams (gut oder schlecht) | geplant |
 | W5 | Landingpage, sobald die Agenten stehen | geplant |
@@ -98,7 +98,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 26 Funktionen sind 22 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
+Von 29 Funktionen sind 25 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
@@ -127,6 +127,9 @@ Von 26 Funktionen sind 22 umgesetzt, 1 in Arbeit und 3 geplant. In Arbeit ist nu
 | F72 | Report-Agent | Claude schreibt den Kurz-Check: Saisonpreise, Marktvergleich, höchstens drei Tipps | umgesetzt |
 | F73 | Report-Agent | Der Agent liest seine Leitplanken aus der engine, bevor er schreibt | umgesetzt |
 | F74 | Report-Agent | Kurz-Check landet als Freigabe in der engine und meldet sich im Live-Feed | umgesetzt |
+| F75 | Report-Agent | Kurz-Check rechnet mit echten Marktdaten der Region: Preise je Saison, Vergleich mit gleich vielen Schlafzimmern, Großveranstaltungen | umgesetzt |
+| F76 | Marktdaten-Agent | Liest pro Region und Saison ein Wochenende auf Airbnb und Booking.com, speichert Kennzahlen und anonyme Einzelangebote als Archiv; monatlich und auf Abruf des Report-Agenten | umgesetzt |
+| F77 | Marktdaten | Seite „Marktdaten“: Preise je Saison und Portal, Großveranstaltungen, Ausstattung; Regionen aufnehmen und pausieren | umgesetzt |
 | F80 | Einstellungen | Team, Benachrichtigungen und Zugänge verwalten | geplant |
 
 > [!note] Stand 29.10.2026, abends
@@ -177,7 +180,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Report | Kurz-Check aus der Formular-Anfrage schreiben, später Quick-Check und Komplett-Analyse | Formular | umgesetzt |
 | Vertrieb | Meta-Ads schalten, Leads einschätzen, Rückrufe buchen | Zeitplan, neuer Lead | geplant |
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
-| Marktdaten | Preise und Belegung von Airbnb, Booking.com und Destatis sammeln, über Firecrawl | Zeitplan | geplant |
+| Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
 | Support und Monitor | Fragen beantworten, Monitor-Kunden überwachen | E-Mail, Zeitplan | geplant |
 
@@ -221,7 +224,7 @@ Die wichtigste Anforderung ist Vertrauen: Kein Agent erreicht in der Beta einen 
 | --- | --- | --- |
 | Sicherheit | Nur Admins sehen und ändern Daten | Login-Prüfung auf jeder Seite, Row Level Security auf jeder Tabelle, keine geheimen Schlüssel im Code, Passwörter nur im Supabase-Dashboard |
 | Datenschutz | Kundendaten bleiben in der EU und nur so lange wie nötig | Supabase in Frankfurt; Datenschutzhinweis im Formular und Löschfrist für Leads sind noch offen (Abschnitt 11) |
-| Recht | Rechtliche Risiken beim Auslesen klein halten | Von Airbnb und Booking.com nur Marktdaten, gespeichert nur zusammengefasst pro Region (Entscheidung 29.10.2026); Schätzungen im Report sind als Schätzung gekennzeichnet |
+| Recht | Rechtliche Risiken beim Auslesen klein halten | Von Airbnb und Booking.com nur Marktdaten, gespeichert werden Kennzahlen pro Region und Saison und nur anonyme Einzelangebote (Entscheidungen 29. und 30.10.2026); Schätzungen im Report sind als Schätzung gekennzeichnet |
 | Qualität | Reports sind nachvollziehbar | Leitplanken erzwingen Saisonpreis-Tabelle, Marktvergleich und offenen Rechenweg; ein Mensch prüft jeden Report |
 | Schnelligkeit | Vermieter bekommt den Kurz-Check innerhalb von 24 Stunden | Agent schreibt in wenigen Minuten, Freigabe-Zähler und Live-Hinweis halten die Warteschlange klein |
 | Kosten | Grenzkosten pro Report ca. 1,50 € (Ziel aus dem Businessplan) | Gratis-Tarif bei Supabase, Claude über n8n-Guthaben, keine eigenen Server |
@@ -238,7 +241,7 @@ Die engine besteht aus fünf fertigen Diensten, die wir nur verbinden; eigene Se
 | --- | --- | --- |
 | Next.js 16 mit React, Tailwind und Motion | Oberfläche der engine | Eigene Komponenten, keine weiteren UI-Bibliotheken |
 | Supabase | Datenbank, Login, Live-Updates | Projekt „hostwise“, Frankfurt, Gratis-Tarif |
-| n8n Cloud | Abläufe der Agenten | Workflow „hostwise · Report-Agent (Kurz-Check)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
+| n8n Cloud | Abläufe der Agenten | Workflows „hostwise · Report-Agent (Kurz-Check)“ und „hostwise · Scraping-Agent (Marktdaten)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
 | Claude Sonnet 5.5 | Texte und Analysen der Agenten | Über das KI-Guthaben von n8n |
 | GitHub | Code und Änderungsvorschläge (Pull Requests) | Repo `hostwisedemo` |
 | Netlify | Hosting der engine | Geplant für den Demonstrator |

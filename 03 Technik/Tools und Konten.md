@@ -30,7 +30,7 @@ Welche Werkzeuge wir nutzen, wer Zugang hat und wo Schlüssel liegen.
 - Supabase-Zugang: Credential „Supabase account“.
 - Firecrawl-Zugang: Credential vom Typ „Firecrawl API“. **Base URL muss `https://api.firecrawl.dev/v2` sein**, sonst meldet Firecrawl „Not Found“.
 - Test-Ablauf „hostwise · Firecrawl-Test“: eine Suche mit drei Treffern, kostet 2 Credits.
-- Report-Agent: gebaut und getestet, wartet auf Veröffentlichung.
+- Report-Agent und Marktdaten-Agent (Workflow „hostwise · Scraping-Agent (Marktdaten)“): gebaut und getestet, warten auf Veröffentlichung im n8n-Editor.
 
 ## Obsidian und dieses Vault
 
