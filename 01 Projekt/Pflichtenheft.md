@@ -7,7 +7,7 @@ abnahme: 2026-11-10
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 30.10.2026. Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 30.10.2026 (Stand nach dem Ausbau des Report-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -51,7 +51,7 @@ M2 ist in Arbeit, weil die Kennzahlen noch Beispielwerte sind.
 | --- | --- | --- |
 | W1 | Vertriebs-Agent schätzt Anfragen ein und schaltet Meta-Ads; jede Budgetänderung über 20 % braucht eine Freigabe | in Arbeit |
 | W2 | Marktdaten-Agent liest Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen über Firecrawl | umgesetzt |
-| W3 | Quick-Check für 29 € mit Bezahlung | geplant |
+| W3 | Bezahlung für Quick-Check, Komplett-Analyse und Monitor (die Reports selbst laufen seit 30.10.2026, F84 bis F89) | geplant |
 | W4 | Agenten lernen aus den Bewertungen des Teams (gut oder schlecht) | geplant |
 | W5 | Landingpage, sobald die Agenten stehen | geplant |
 
@@ -136,6 +136,12 @@ Von 34 Funktionen sind 29 umgesetzt, 1 in Arbeit und 4 geplant. In Arbeit ist nu
 | F81 | Vertriebs-Agent | Schlägt einmal pro Woche 2–3 Meta-Anzeigen vor (Text, Region, Zielgruppe, Anlass, Tagesbudget), hält die Tagesbudget-Leitplanke ein und legt sie zur Freigabe ab | umgesetzt |
 | F82 | Vertrieb | Seite des Vertriebs-Agenten zeigt die eingeschätzten Anfragen und die Anzeigen mit ihrem Stand, live | umgesetzt |
 | F83 | Vertriebs-Agent | Freigegebene Anzeigen über ein Meta-Werbekonto schalten und Ergebnisse zurückmelden | geplant |
+| F84 | Report-Agent | Bestellformulare für Quick-Check, Komplett-Analyse und Monitor: Ort, Schlafzimmer, Preis pro Nacht, gebuchte Nächte, Portale; bei der Komplett-Analyse auch die Ausstattung | umgesetzt |
+| F85 | Report-Agent | Rechenkern in Supabase rechnet alle Zahlen des Reports: Empfehlung je Saison, Mehrertrag, Ertragslücke zum Markt, Veranstaltungen, Ausstattung; Claude schreibt nur den Text | umgesetzt |
+| F86 | Report-Agent | Prüfung vor der Freigabe: alle Kapitel des Produkts vorhanden, jeder Euro-Betrag stammt aus dem Rechenkern, keine E-Mail-Adressen; Auffälligkeiten stehen in der Freigabe | umgesetzt |
+| F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
+| F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
+| F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
@@ -188,12 +194,12 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 
 | Agent | Aufgabe | Auslöser | Stand |
 | --- | --- | --- | --- |
-| Report | Kurz-Check aus der Formular-Anfrage schreiben, später Quick-Check und Komplett-Analyse | Formular | umgesetzt |
+| Report | Kurz-Check, Quick-Check, Komplett-Analyse und Monitor-Berichte schreiben; alle Zahlen kommen aus dem Rechenkern in Supabase | Formular | umgesetzt |
 | Vertrieb | Anfragen einschätzen und Meta-Anzeigen vorschlagen; später Anzeigen schalten und Rückrufe buchen | Zeitplan (täglich 7 Uhr, Anzeigen einmal pro Woche) | in Arbeit |
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
-| Support und Monitor | Fragen beantworten, Monitor-Kunden überwachen | E-Mail, Zeitplan | geplant |
+| Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
 
 Bewertungen, Fotos, Buchhaltung und Google Ads stehen als „verfügbar“ in der engine und lassen sich dort mit dem Assistenten anbinden, sobald ihr Ablauf in n8n steht.
 
@@ -254,7 +260,7 @@ Die engine besteht aus fünf fertigen Diensten, die wir nur verbinden; eigene Se
 | --- | --- | --- |
 | Next.js 16 mit React, Tailwind und Motion | Oberfläche der engine | Eigene Komponenten, keine weiteren UI-Bibliotheken |
 | Supabase | Datenbank, Login, Live-Updates | Projekt „hostwise“, Frankfurt, Gratis-Tarif |
-| n8n Cloud | Abläufe der Agenten | Workflows „hostwise · Report-Agent (Kurz-Check)“, „hostwise · Scraping-Agent (Marktdaten)“ und „hostwise · Vertriebs-Agent (Leads und Anzeigen)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
+| n8n Cloud | Abläufe der Agenten | Workflows „hostwise · Report-Agent (Kurz-Check)“, „hostwise · Report-Agent (Quick-Check, Komplett-Analyse, Monitor)“, „hostwise · Scraping-Agent (Marktdaten)“ und „hostwise · Vertriebs-Agent (Leads und Anzeigen)“, Webseiten liest Firecrawl; Quelltext liegt im Repo unter `n8n/` |
 | Claude Sonnet 5.5 | Texte und Analysen der Agenten | Über das KI-Guthaben von n8n |
 | GitHub | Code und Änderungsvorschläge (Pull Requests) | Repo `hostwisedemo` |
 | Netlify | Hosting der engine | Geplant für den Demonstrator |
@@ -313,7 +319,9 @@ Nach dem Pitch folgen laut Kursplan Business Model mit Go/No-Go am 12.01.2027 un
 **Offene Punkte**
 
 - [x] Workflow „Report-Agent“ in n8n veröffentlichen, damit das Formular dauerhaft erreichbar ist
-- [ ] Workflow „Vertriebs-Agent“ in n8n veröffentlichen, damit er jeden Morgen läuft
+- [x] Workflow „Vertriebs-Agent“ in n8n veröffentlichen, damit er jeden Morgen läuft
+- [ ] Workflow „Report-Agent (Quick-Check, Komplett-Analyse, Monitor)“ in n8n veröffentlichen, damit die drei Bestellformulare erreichbar sind
+- [ ] Preis des Monitors festlegen: 39 € im Monat oder ein Jahrespreis
 - [ ] Meta Business-Konto mit Werbekonto anlegen, damit der Vertriebs-Agent freigegebene Anzeigen schalten kann (F83)
 - [ ] Login-Konten für Oskar und Maximilian im Supabase-Dashboard anlegen
 - [ ] E-Mail-Versand nach der Freigabe bauen (M7): Absender-Adresse und Versanddienst festlegen
