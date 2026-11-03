@@ -25,6 +25,7 @@ Faustwert für den Verkauf: Der Quick-Check soll mindestens 300 € Mehrertrag i
 - **Feste Gliederung je Produkt**, gepflegt in der engine unter „Daten“ → „Produkte“.
 - **Prüfung vor der Freigabe:** Fehlt ein Kapitel oder steht ein Euro-Betrag im Text, der nicht aus dem Rechenkern stammt, steht das auf der Freigabe.
 - **Ehrliche Kennzeichnung:** Werktagspreise sind Schätzungen (wir lesen nur Wochenenden), angenommene Nächte stehen als Annahme im Text.
+- **Wenig Text, viele Grafiken** (seit 30.10.2026, Wunsch von Lukas): Jedes Kapitel hat höchstens drei kurze Sätze. Kennzahlen, Preise je Saison, Jahresertrag, Veranstaltungen, Ausstattung und die Portale zeigt die engine als Grafik. Claude setzt dafür nur eine Markierung in den Text, die Zahlen kommen aus dem Rechenkern. Eine Komplett-Analyse ist damit etwa 60 % kürzer.
 - **Druckansicht im hostwise-Design**, daraus wird mit einem Klick ein PDF.
 
 ## So rechnet der Rechenkern
@@ -44,6 +45,7 @@ Faustwert für den Verkauf: Der Quick-Check soll mindestens 300 € Mehrertrag i
 > - Monitor als 39 € im Monat oder als Jahrespreis anbieten? In den simulierten Interviews lehnen 3 von 6 das Monatsabo ab.
 > - Das eigene Inserat des Kunden auslesen (Fotos, Titel, Beschreibung)? Bis dahin fragt das Formular die Ausstattung ab.
 > - Werktage zusätzlich lesen? Kostet 2 Firecrawl-Credits mehr je Saison und Region.
+> - Logos von Airbnb und Booking.com in den Reports? Vorschlag: nicht, weil beide Marken ihre Logos nur mit Zustimmung freigeben und es nach Partnerschaft aussehen würde. Bis dahin stehen die Portale als Text in den Grafiken.
 > - Bezahlung (W3) und E-Mail-Versand nach der Freigabe (M7) fehlen noch.
 
 Siehe auch: [[hostwise engine]], [[Marktdaten-Anbieter]], [[Simulierte Interviews]], [[Pflichtenheft]].
