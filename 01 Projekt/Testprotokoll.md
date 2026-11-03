@@ -44,4 +44,4 @@ Etwa 20 Minuten, am besten zu zweit (für T8):
 
 - **Kurz-Check München:** Das Stichproben-Wochenende im Winter (15.01.2027) fällt auf ein großes Konzert; der Check sagt das selbst. Die Saisons heißen dort „Nebensaison“, „Zwischensaison“ und „Hauptsaison“, obwohl für München keine Saison gemessen wurde, die das trägt.
 - **Ausstattung über 100 % (behoben):** siehe [[Marktdaten-Anbieter]]. Die Preise von Amberg im Sommer enthalten noch Angebote aus der Umgebung.
-- **Agenten ohne Ablauf:** Marketing, Analyse und Support stehen als „aktiv“ bzw. „pausiert“ in der engine und zeigen Beispielzahlen (12 Entwürfe, 23 Analysen, 6 Monitor-Kunden), haben aber noch keinen Ablauf in n8n.
+- **Agenten ohne Ablauf:** Marketing, Analyse und Support stehen als „aktiv“ bzw. „pausiert“ in der engine und zeigen Beispielzahlen (12 Entwürfe, 23 Analysen, 6 Monitor-Kunden), haben aber noch keinen Ablauf in n8n. Nachtrag 03.11.2026: Marketing hat jetzt einen Ablauf und zählt echte Entwürfe (T14 bestanden).

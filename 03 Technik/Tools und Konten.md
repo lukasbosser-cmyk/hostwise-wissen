@@ -18,7 +18,8 @@ Welche Werkzeuge wir nutzen, wer Zugang hat und wo Schlüssel liegen.
 | Firecrawl | Webseiten und Portale auslesen | Konto von Lukas, 1.000 Credits pro Monat kostenlos | nur n8n Credential |
 | Claude | Bauen, Schreiben, Agenten-KI | KI in n8n läuft über n8n-Guthaben, kein eigener Schlüssel | – |
 | Obsidian | Dieses Vault lesen und bearbeiten | Konto von Lukas | – |
-| Meta Business (Facebook, Instagram) | Anzeigen des Vertriebs-Agenten schalten | noch nicht angelegt; bis dahin schlägt der Agent Anzeigen nur vor | später nur n8n Credential |
+| Meta Business (Facebook, Instagram) | Anzeigen des Vertriebs-Agenten schalten, Beiträge des Marketing-Agenten veröffentlichen | noch nicht angelegt; bis dahin schlagen die Agenten Anzeigen und Beiträge nur vor | später nur n8n Credential |
+| Newsletter-Tool | Newsletter des Marketing-Agenten versenden | noch nicht ausgewählt; bis dahin liegt der Newsletter nur als Entwurf unter „Freigaben“ | später nur n8n Credential |
 
 ## Supabase
 

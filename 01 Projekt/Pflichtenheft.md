@@ -1,13 +1,13 @@
 ---
 tags: [projekt, pflichtenheft]
-stand: 2026-10-30
+stand: 2026-11-03
 abnahme: 2026-11-10
 ---
 
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 30.10.2026 (Stand nach den echten Cockpit-Kennzahlen und dem ersten Testlauf). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Marketing-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -140,13 +140,16 @@ Von 40 Funktionen sind 36 umgesetzt und 4 geplant. Seit dem 30.10.2026 ist keine
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
 | F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
+| F90 | Marketing-Agent | Jeden Montag 3 Instagram-Beiträge (Di, Do, Sa), im ersten Lauf des Monats einen Newsletter und einmalig die Texte der Landingpage entwerfen; Anlass sind Saisonpreise und Großveranstaltungen aus den Marktdaten | umgesetzt |
+| F91 | Marketing-Agent | Prüfung vor der Freigabe: jede Zahl stammt aus den Marktdaten oder Produkten, keine Versprechen zu Mehreinnahmen; Auffälligkeiten stehen in der Freigabe | umgesetzt |
+| F92 | Marketing-Agent | Freigegebene Beiträge auf Instagram und den Newsletter über ein Newsletter-Tool veröffentlichen | geplant |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
 
 ## 5 Produktdaten (Datenmodell)
 
-Alle Daten liegen in 16 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
+Alle Daten liegen in Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
 
 | Tabelle | Was sie speichert | Wichtige Felder | Hängt an |
 | --- | --- | --- | --- |
@@ -166,13 +169,14 @@ Alle Daten liegen in 16 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `
 | `ad_campaigns` | Meta-Anzeigen des Vertriebs-Agenten | Überschrift, Text, Button, Region, Zielgruppe, Anlass, Tagesbudget, Laufzeit, Stand (Entwurf, freigegeben, zurückgegeben, läuft, beendet) | `approvals`, `market_regions` |
 | `products` | Preismodelle: Kurz-Check, Quick-Check, Komplett-Analyse, Monitor | Name, Preis, Abrechnung, Leitfrage, Gliederung, Mindest-Mehrertrag, aktiv | – |
 | `orders` | Bestellungen der bezahlten Reports | Produkt, Stand (neu bis beendet), Preis, Angaben aus dem Formular, Monitor-Rhythmus, nächster Bericht | `leads`, `products` |
+| `marketing_drafts` | Entwürfe des Marketing-Agenten | Art (Instagram, Newsletter, Landingpage), Titel, Text, Bildidee, Hashtags, Aufruf, geplant für, Stand (Entwurf, freigegeben, zurückgegeben, veröffentlicht) | `approvals`, `market_regions` |
 
 **Zugriffsregeln**
 
 - Jede Tabelle hat Row Level Security: Lesen und Schreiben darf nur, wer mit einer E-Mail aus `admins` angemeldet ist (Prüfung über `is_admin()`).
 - n8n schreibt mit einem Server-Schlüssel, der nur in n8n hinterlegt ist. Im Code liegt nur der öffentliche Schlüssel.
-- Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen.
-- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile.
+- Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen, mit 0017 auch für Marketing-Entwürfe.
+- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile, 0017 Marketing-Agent.
 
 ## 6 Agenten-Architektur
 
@@ -196,7 +200,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | --- | --- | --- | --- |
 | Report | Kurz-Check, Quick-Check, Komplett-Analyse und Monitor-Berichte schreiben; alle Zahlen kommen aus dem Rechenkern in Supabase | Formular | umgesetzt |
 | Vertrieb | Anfragen einschätzen und Meta-Anzeigen vorschlagen; später Anzeigen schalten und Rückrufe buchen | Zeitplan (täglich 7 Uhr, Anzeigen einmal pro Woche) | in Arbeit |
-| Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
+| Marketing | Instagram-Beiträge, Newsletter und Texte für die Landingpage entwerfen; jede Zahl kommt aus den Marktdaten | Zeitplan (montags 8 Uhr, Newsletter einmal im Monat) | umgesetzt |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
 | Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
@@ -293,6 +297,7 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | bestanden |
 | T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | bestanden |
 | T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | bestanden |
+| T14 | Marketing-Agent in n8n mit „Test starten“ laufen lassen, dann „Freigaben“ und die Seite des Agenten öffnen | Eine Freigabe „Marketing-Entwürfe“ mit 3 Beiträgen, Newsletter und Startseite; jede Zahl steht so in den Marktdaten | F90, F91 | bestanden |
 
 **Testlauf am 30.10.2026 (Claude, ohne eigenen Login):** 5 von 13 bestanden, 4 zur Hälfte geprüft, 4 offen. Was nur mit einem Admin-Login im Browser geht, steht in der letzten Spalte. Einzelheiten in [[Testprotokoll]].
 
@@ -311,6 +316,7 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | T11 | Alle 10 Seiten bei 360 px (Handy) und 1366 px (Laptop) ohne seitliches Scrollen und ohne Fehler | – |
 | T12 | Ohne Zugangsdaten startet der Demo-Modus, alle Seiten laden ohne Login | – |
 | T13 | Anfrage „Lukas Bosser“ als warm mit Quick-Check und Grund eingeschätzt; 3 Anzeigen mit 15, 15 und 10 € am Tag liegen unter „Freigaben“ | – |
+| T14 | 03.11.2026: 3 Beiträge (Garmisch 181 €, München 131 €, Amberg 114 € im Winter), Newsletter November und Startseite liegen unter „Freigaben“; die Prüfung fand keine fremde Zahl | – |
 
 ## 11 Zeitplan und offene Punkte
 
