@@ -1,13 +1,13 @@
 ---
 tags: [projekt, pflichtenheft]
-stand: 2026-10-30
+stand: 2026-11-03
 abnahme: 2026-11-10
 ---
 
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 30.10.2026 (Stand nach den echten Cockpit-Kennzahlen und dem ersten Testlauf). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Support-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -140,6 +140,9 @@ Von 40 Funktionen sind 36 umgesetzt und 4 geplant. Seit dem 30.10.2026 ist keine
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
 | F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
+| F96 | Support-Agent | Kontaktformular `/form/support`: die Frage wird über die E-Mail-Adresse der Anfrage und Bestellung zugeordnet; Claude schreibt aus Bestellstand, Produkten, Wissen und Leitplanken einen Antwort-Entwurf, der als Freigabe wartet | umgesetzt |
+| F97 | Support-Agent | Morgenrunde um 8 Uhr: Monitor-Kunden, überfällige Monitor-Berichte, Bestellungen über 48 Stunden und Fragen ohne Antwort prüfen und im Live-Feed melden; Kennzahl „Fragen (7 Tage)“ | umgesetzt |
+| F98 | Support-Agent | E-Mail-Postfach anbinden: Fragen per Mail annehmen und freigegebene Antworten selbst verschicken | geplant |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
@@ -199,7 +202,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
-| Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
+| Support und Monitor | Fragen aus dem Kontaktformular beantworten (Entwurf zur Freigabe) und jeden Morgen auf Monitor-Kunden und offene Bestellungen aufpassen; die Monitor-Berichte schreibt der Report-Agent | Formular, Zeitplan (täglich 8 Uhr) | umgesetzt |
 
 Bewertungen, Fotos, Buchhaltung und Google Ads stehen als „verfügbar“ in der engine und lassen sich dort mit dem Assistenten anbinden, sobald ihr Ablauf in n8n steht.
 
@@ -293,6 +296,7 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | bestanden |
 | T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | bestanden |
 | T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | bestanden |
+| T16 | Im Kontaktformular `/form/support` mit der E-Mail einer Bestellung nach dem Report fragen | Unter „Freigaben“ liegt ein Antwort-Entwurf mit Empfänger, Frage und dem richtigen Bestellstand, ohne erfundene Beträge; die Frage steht beim Support-Agenten | F96 | bestanden |
 
 **Testlauf am 30.10.2026 (Claude, ohne eigenen Login):** 5 von 13 bestanden, 4 zur Hälfte geprüft, 4 offen. Was nur mit einem Admin-Login im Browser geht, steht in der letzten Spalte. Einzelheiten in [[Testprotokoll]].
 
