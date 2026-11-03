@@ -7,7 +7,7 @@ abnahme: 2026-11-10
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Analyse- und dem Marketing-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Analyse-, Marketing- und Support-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -96,7 +96,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 46 Funktionen sind 41 umgesetzt und 5 geplant. Seit dem 30.10.2026 ist keine mehr in Arbeit: F20 zählt die Kennzahlen im Cockpit jetzt aus der Datenbank.
+Von 49 Funktionen sind 43 umgesetzt und 6 geplant. Seit dem 30.10.2026 ist keine mehr in Arbeit: F20 zählt die Kennzahlen im Cockpit jetzt aus der Datenbank.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
@@ -138,7 +138,7 @@ Von 46 Funktionen sind 41 umgesetzt und 5 geplant. Seit dem 30.10.2026 ist keine
 | F85 | Report-Agent | Rechenkern in Supabase rechnet alle Zahlen des Reports: Empfehlung je Saison, Mehrertrag, Ertragslücke zum Markt, Veranstaltungen, Ausstattung; Claude schreibt nur den Text | umgesetzt |
 | F86 | Report-Agent | Prüfung vor der Freigabe: alle Kapitel des Produkts vorhanden, jeder Euro-Betrag stammt aus dem Rechenkern, keine E-Mail-Adressen; Auffälligkeiten stehen in der Freigabe | umgesetzt |
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
-| F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
+| F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design mit Grafiken (Kennzahlen, Preise je Saison, Jahresertrag, Veranstaltungen, Ausstattung, Portale), als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
 | F90 | Marketing-Agent | Jeden Montag 3 Instagram-Beiträge (Di, Do, Sa), im ersten Lauf des Monats einen Newsletter und einmalig die Texte der Landingpage entwerfen; Anlass sind Saisonpreise und Großveranstaltungen aus den Marktdaten | umgesetzt |
 | F91 | Marketing-Agent | Prüfung vor der Freigabe: jede Zahl stammt aus den Marktdaten oder Produkten, keine Versprechen zu Mehreinnahmen; Auffälligkeiten stehen in der Freigabe | umgesetzt |
@@ -146,6 +146,9 @@ Von 46 Funktionen sind 41 umgesetzt und 5 geplant. Seit dem 30.10.2026 ist keine
 | F93 | Analyse-Agent | Rechenkern in Supabase wertet die Marktdaten jeder Region aus: Preise je Saison und Größe, Preisspanne, Profi-Anteil, Booking.com gegen Airbnb, seltene und übliche Ausstattung, Veranstaltungen, Anfragen der Region, Datenlücken und Chancen-Score (0–100, Rechenweg sichtbar) | umgesetzt |
 | F94 | Analyse-Agent | Jeden Morgen um 6:30 schreibt Claude für jede Region mit neuen Marktdaten die Marktlage mit Chancen, Risiken und Datenlücken, jeweils für Vertrieb, Reports, Marketing oder das Team; jede Zahl wird gegen den Rechenkern geprüft; der Vertriebs-Agent liest die Marktlage mit | umgesetzt |
 | F95 | Analyse | Marktlage mit Chancen-Score auf der Seite des Agenten und unter „Marktdaten“ je Region, live | umgesetzt |
+| F96 | Support-Agent | Kontaktformular `/form/support`: die Frage wird über die E-Mail-Adresse der Anfrage und Bestellung zugeordnet; Claude schreibt aus Bestellstand, Produkten, Wissen und Leitplanken einen Antwort-Entwurf, der als Freigabe wartet | umgesetzt |
+| F97 | Support-Agent | Morgenrunde um 8 Uhr: Monitor-Kunden, überfällige Monitor-Berichte, Bestellungen über 48 Stunden und Fragen ohne Antwort prüfen und im Live-Feed melden; Kennzahl „Fragen (7 Tage)“ | umgesetzt |
+| F98 | Support-Agent | E-Mail-Postfach anbinden: Fragen per Mail annehmen und freigegebene Antworten selbst verschicken | geplant |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
@@ -180,7 +183,7 @@ Alle Daten liegen in Tabellen in Supabase; im Mittelpunkt steht die Tabelle `age
 - Jede Tabelle hat Row Level Security: Lesen und Schreiben darf nur, wer mit einer E-Mail aus `admins` angemeldet ist (Prüfung über `is_admin()`).
 - n8n schreibt mit einem Server-Schlüssel, der nur in n8n hinterlegt ist. Im Code liegt nur der öffentliche Schlüssel.
 - Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen, mit 0017 auch für Marketing-Entwürfe.
-- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile, 0017 Marketing-Agent, 0018 Analyse-Agent.
+- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile, 0017 Marketing-Agent, 0018 Analyse-Agent, 0019 Support-Agent.
 
 ## 6 Agenten-Architektur
 
@@ -207,7 +210,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Marketing | Instagram-Beiträge, Newsletter und Texte für die Landingpage entwerfen; jede Zahl kommt aus den Marktdaten | Zeitplan (montags 8 Uhr, Newsletter einmal im Monat) | umgesetzt |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
 | Analyse | Marktlage je Region: Preise, Spanne, Lücken, Chancen-Score; liefert dem Vertrieb Anlässe und Botschaften. Läuft ohne Freigabe, weil nichts an Kunden geht | Zeitplan (täglich 6:30, nur bei neuen Marktdaten), Auftrag anderer Agenten | umgesetzt |
-| Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
+| Support und Monitor | Fragen aus dem Kontaktformular beantworten (Entwurf zur Freigabe) und jeden Morgen auf Monitor-Kunden und offene Bestellungen aufpassen; die Monitor-Berichte schreibt der Report-Agent | Formular, Zeitplan (täglich 8 Uhr) | umgesetzt |
 
 Bewertungen, Fotos, Buchhaltung und Google Ads stehen als „verfügbar“ in der engine und lassen sich dort mit dem Assistenten anbinden, sobald ihr Ablauf in n8n steht.
 
@@ -303,6 +306,7 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | bestanden |
 | T14 | Marketing-Agent in n8n mit „Test starten“ laufen lassen, dann „Freigaben“ und die Seite des Agenten öffnen | Eine Freigabe „Marketing-Entwürfe“ mit 3 Beiträgen, Newsletter und Startseite; jede Zahl steht so in den Marktdaten | F90, F91 | bestanden |
 | T15 | Den Analyse-Agenten in n8n starten, dann die Seite des Agenten und „Marktdaten“ öffnen | Für jede Region mit Marktdaten steht die Marktlage mit Chancen-Score, Rechenweg und 3 bis 5 Befunden; jede Zahl findet sich im Rechenkern | F93–F95 | bestanden |
+| T16 | Im Kontaktformular `/form/support` mit der E-Mail einer Bestellung nach dem Report fragen | Unter „Freigaben“ liegt ein Antwort-Entwurf mit Empfänger, Frage und dem richtigen Bestellstand, ohne erfundene Beträge; die Frage steht beim Support-Agenten | F96 | bestanden |
 
 **Testlauf am 30.10.2026 (Claude, ohne eigenen Login):** 5 von 13 bestanden, 4 zur Hälfte geprüft, 4 offen. Was nur mit einem Admin-Login im Browser geht, steht in der letzten Spalte. Einzelheiten in [[Testprotokoll]].
 
