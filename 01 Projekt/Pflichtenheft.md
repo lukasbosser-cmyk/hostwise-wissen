@@ -96,7 +96,7 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 40 Funktionen sind 36 umgesetzt und 4 geplant. Seit dem 30.10.2026 ist keine mehr in Arbeit: F20 zählt die Kennzahlen im Cockpit jetzt aus der Datenbank.
+Von 43 Funktionen sind 38 umgesetzt und 5 geplant. Seit dem 30.10.2026 ist keine mehr in Arbeit: F20 zählt die Kennzahlen im Cockpit jetzt aus der Datenbank.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
