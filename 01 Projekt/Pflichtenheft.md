@@ -1,13 +1,13 @@
 ---
 tags: [projekt, pflichtenheft]
-stand: 2026-10-30
+stand: 2026-11-03
 abnahme: 2026-11-10
 ---
 
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 30.10.2026 (Stand nach den echten Cockpit-Kennzahlen und dem ersten Testlauf). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Analyse-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -140,6 +140,9 @@ Von 40 Funktionen sind 36 umgesetzt und 4 geplant. Seit dem 30.10.2026 ist keine
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
 | F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design, als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
+| F93 | Analyse-Agent | Rechenkern in Supabase wertet die Marktdaten jeder Region aus: Preise je Saison und Größe, Preisspanne, Profi-Anteil, Booking.com gegen Airbnb, seltene und übliche Ausstattung, Veranstaltungen, Anfragen der Region, Datenlücken und Chancen-Score (0–100, Rechenweg sichtbar) | umgesetzt |
+| F94 | Analyse-Agent | Jeden Morgen um 6:30 schreibt Claude für jede Region mit neuen Marktdaten die Marktlage mit Chancen, Risiken und Datenlücken, jeweils für Vertrieb, Reports, Marketing oder das Team; jede Zahl wird gegen den Rechenkern geprüft; der Vertriebs-Agent liest die Marktlage mit | umgesetzt |
+| F95 | Analyse | Marktlage mit Chancen-Score auf der Seite des Agenten und unter „Marktdaten“ je Region, live | umgesetzt |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
@@ -166,13 +169,14 @@ Alle Daten liegen in 16 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `
 | `ad_campaigns` | Meta-Anzeigen des Vertriebs-Agenten | Überschrift, Text, Button, Region, Zielgruppe, Anlass, Tagesbudget, Laufzeit, Stand (Entwurf, freigegeben, zurückgegeben, läuft, beendet) | `approvals`, `market_regions` |
 | `products` | Preismodelle: Kurz-Check, Quick-Check, Komplett-Analyse, Monitor | Name, Preis, Abrechnung, Leitfrage, Gliederung, Mindest-Mehrertrag, aktiv | – |
 | `orders` | Bestellungen der bezahlten Reports | Produkt, Stand (neu bis beendet), Preis, Angaben aus dem Formular, Monitor-Rhythmus, nächster Bericht | `leads`, `products` |
+| `market_analyses` | Marktlage des Analyse-Agenten je Region, nur intern | Chancen-Score, Kurzfassung, Befunde (Chance, Risiko, Datenlücke; für wen), Zahlen des Rechenkerns, Stand der Marktdaten | `market_regions` |
 
 **Zugriffsregeln**
 
 - Jede Tabelle hat Row Level Security: Lesen und Schreiben darf nur, wer mit einer E-Mail aus `admins` angemeldet ist (Prüfung über `is_admin()`).
 - n8n schreibt mit einem Server-Schlüssel, der nur in n8n hinterlegt ist. Im Code liegt nur der öffentliche Schlüssel.
 - Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen.
-- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile.
+- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile, 0018 Analyse-Agent.
 
 ## 6 Agenten-Architektur
 
@@ -198,7 +202,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Vertrieb | Anfragen einschätzen und Meta-Anzeigen vorschlagen; später Anzeigen schalten und Rückrufe buchen | Zeitplan (täglich 7 Uhr, Anzeigen einmal pro Woche) | in Arbeit |
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
-| Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
+| Analyse | Marktlage je Region: Preise, Spanne, Lücken, Chancen-Score; liefert dem Vertrieb Anlässe und Botschaften. Läuft ohne Freigabe, weil nichts an Kunden geht | Zeitplan (täglich 6:30, nur bei neuen Marktdaten), Auftrag anderer Agenten | umgesetzt |
 | Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
 
 Bewertungen, Fotos, Buchhaltung und Google Ads stehen als „verfügbar“ in der engine und lassen sich dort mit dem Assistenten anbinden, sobald ihr Ablauf in n8n steht.
@@ -293,6 +297,7 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | bestanden |
 | T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | bestanden |
 | T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | bestanden |
+| T15 | Den Analyse-Agenten in n8n starten, dann die Seite des Agenten und „Marktdaten“ öffnen | Für jede Region mit Marktdaten steht die Marktlage mit Chancen-Score, Rechenweg und 3 bis 5 Befunden; jede Zahl findet sich im Rechenkern | F93–F95 | bestanden |
 
 **Testlauf am 30.10.2026 (Claude, ohne eigenen Login):** 5 von 13 bestanden, 4 zur Hälfte geprüft, 4 offen. Was nur mit einem Admin-Login im Browser geht, steht in der letzten Spalte. Einzelheiten in [[Testprotokoll]].
 
