@@ -17,6 +17,7 @@ Woher die Vergleichspreise und Belegungen für die Reports kommen. Seit dem 29.1
 - **Großveranstaltungen:** einmal im Monat sucht der Agent Veranstaltungsseiten der Region (Firecrawl-Suche, 3 Seiten) und Claude liest die Großveranstaltungen der nächsten 12 Monate heraus: Name, Datum, Art, Größe, Quelle.
 - **Kosten:** 1 Credit pro Suchseite, also 2 Credits je Saison und Region; die Veranstaltungssuche etwa 5 Credits im Monat. Eine neue Region kostet beim ersten Mal etwa 13 Credits, danach etwa 7 im Monat.
 - **Erster Lauf (30.10.2026, Garmisch-Partenkirchen):** 162 Vergleichsangebote, mittlerer Preis pro Nacht auf Airbnb 135–160 €, auf Booking.com 159–214 € je nach Saison; auf Booking.com sind die Stichproben-Wochenenden schon zu 85–90 % ausgebucht. 10 Großveranstaltungen, darunter Neujahrsskispringen und Ski-Weltcup.
+- **Kleine Orte (seit 30.10.2026 abgefangen):** In Amberg hat Booking.com in den Filtern auch Unterkünfte aus der Umgebung gezählt, die Trefferzahl aber nur für den Ort. Dadurch kamen Ausstattungsanteile über 100 % heraus (z. B. Küche 422 %). Der Agent verwirft solche Ausstattungen jetzt und zählt nur so viele Angebote, wie Booking.com Treffer meldet; die falschen Werte von Amberg (Sommer, Winter) sind geleert. Die Preise von Amberg im Sommer enthalten noch Angebote aus der Umgebung, bis die Saison im nächsten Jahr neu gelesen wird.
 - **Risiko:** AGB der Plattformen, Datenbankrecht, DSGVO. Bewusst in Kauf genommen und durch Datensparsamkeit begrenzt. Vor dem Launch rechtlich prüfen lassen.
 
 ## Anbieter mit Schnittstelle

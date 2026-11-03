@@ -1,13 +1,13 @@
 ---
 tags: [projekt, pflichtenheft]
-stand: 2026-10-30
+stand: 2026-11-03
 abnahme: 2026-11-10
 ---
 
 # hostwise engine – Pflichtenheft
 
 > [!info] Lebende Fassung
-> Diese Datei ist eine Kopie vom 30.10.2026 (Stand nach dem Ausbau des Report-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
+> Diese Datei ist eine Kopie vom 03.11.2026 (Stand nach dem Analyse-Agenten). Bearbeitet wird das Pflichtenheft im Claude Doc: [hostwise engine – Pflichtenheft](https://claude.ai/artifact/MW2zD4FgRRXY9RGqj9ohLz). Dort gibt es auch die Auswahlfelder für Stand und Testergebnis.
 
 Die hostwise engine ist das Gehirn von hostwise: ein Web-Dashboard, in dem unser Team alle KI-Agenten sieht, trainiert, anbindet und ihre Ergebnisse freigibt. Grundgerüst, Login, Datenbank und der erste echte Agent (Report-Agent) laufen bereits; dieses Pflichtenheft beschreibt, was gebaut ist und was bis zum Demonstrator dazukommt.
 
@@ -34,7 +34,7 @@ Bis zum Demonstrator muss ein Vermieter einen Kurz-Check anfordern können, den 
 | Nr. | Kriterium | Stand |
 | --- | --- | --- |
 | M1 | Nur unsere drei Admins kommen mit E-Mail und Passwort in die engine | umgesetzt |
-| M2 | Das Cockpit zeigt Kennzahlen, alle Agenten im Engine-Kern, Live-Aktivität und offene Freigaben | in Arbeit |
+| M2 | Das Cockpit zeigt Kennzahlen, alle Agenten im Engine-Kern, Live-Aktivität und offene Freigaben | umgesetzt |
 | M3 | Status, Selbstständigkeit, Leitplanken und Wissensquellen jedes Agenten werden in der Datenbank gespeichert | umgesetzt |
 | M4 | Jeder Report wartet auf eine menschliche Freigabe, bevor er rausgeht (Beta-Regel) | umgesetzt |
 | M5 | Der Report-Agent macht aus dem Formular einen Kurz-Check und legt ihn zur Freigabe ab | umgesetzt |
@@ -42,8 +42,6 @@ Bis zum Demonstrator muss ein Vermieter einen Kurz-Check anfordern können, den 
 | M7 | Ein freigegebener Kurz-Check geht per E-Mail an den Vermieter | geplant |
 | M8 | Neue Freigaben und Aktivitäten erscheinen ohne Neuladen | umgesetzt |
 | M9 | Alle Texte auf Deutsch, in einfacher Sprache und im hostwise-CI | umgesetzt |
-
-M2 ist in Arbeit, weil die Kennzahlen noch Beispielwerte sind.
 
 ### Wunschkriterien (nach dem Demonstrator)
 
@@ -98,13 +96,13 @@ Der Agent liest seine Leitplanken bei jedem Durchlauf aus Supabase; die E-Mail a
 
 ## 4 Produktfunktionen
 
-Von 34 Funktionen sind 29 umgesetzt, 1 in Arbeit und 4 geplant. In Arbeit ist nur F20, weil die Kennzahlen im Cockpit noch Beispielwerte sind.
+Von 40 Funktionen sind 36 umgesetzt und 4 geplant. Seit dem 30.10.2026 ist keine mehr in Arbeit: F20 zählt die Kennzahlen im Cockpit jetzt aus der Datenbank.
 
 | Nr. | Bereich | Funktion | Stand |
 | --- | --- | --- | --- |
 | F10 | Zugang | Anmelden mit E-Mail und Passwort; wer nicht auf der Admin-Liste steht, wird abgemeldet | umgesetzt |
 | F11 | Zugang | Abmelden über das Nutzer-Menü | umgesetzt |
-| F20 | Cockpit | Kennzahlen: Reports der Woche, offene Freigaben, neue Leads, Werbebudget heute | in Arbeit |
+| F20 | Cockpit | Kennzahlen aus der Datenbank: Reports der Woche, offene Freigaben, Leads der letzten 7 Tage, Werbebudget heute (nur laufende Anzeigen) | umgesetzt |
 | F21 | Cockpit | Engine-Kern: alle Agenten kreisen um das Logo, arbeitende Agenten schicken goldene Impulse ins Zentrum | umgesetzt |
 | F22 | Cockpit | Live-Aktivität: was die Agenten gerade tun, ohne Neuladen | umgesetzt |
 | F23 | Cockpit | „Wartet auf dich“: die nächsten offenen Freigaben | umgesetzt |
@@ -142,13 +140,16 @@ Von 34 Funktionen sind 29 umgesetzt, 1 in Arbeit und 4 geplant. In Arbeit ist nu
 | F87 | Report-Agent | Monitor: erster Report nach der Bestellung, danach Monatsbericht am 2. jedes Monats (oder saisonal sechs Wochen vor Saisonbeginn) mit den Veränderungen seit dem letzten Bericht | umgesetzt |
 | F88 | Freigaben | Druckansicht jedes Reports im hostwise-Design mit Grafiken (Kennzahlen, Preise je Saison, Jahresertrag, Veranstaltungen, Ausstattung, Portale), als PDF speichern | umgesetzt |
 | F89 | Daten | Produkte (Preis, Leitfrage, Gliederung) und Bestellungen in der engine pflegen; der Report-Agent liest die Produkte bei jedem Lauf | umgesetzt |
+| F93 | Analyse-Agent | Rechenkern in Supabase wertet die Marktdaten jeder Region aus: Preise je Saison und Größe, Preisspanne, Profi-Anteil, Booking.com gegen Airbnb, seltene und übliche Ausstattung, Veranstaltungen, Anfragen der Region, Datenlücken und Chancen-Score (0–100, Rechenweg sichtbar) | umgesetzt |
+| F94 | Analyse-Agent | Jeden Morgen um 6:30 schreibt Claude für jede Region mit neuen Marktdaten die Marktlage mit Chancen, Risiken und Datenlücken, jeweils für Vertrieb, Reports, Marketing oder das Team; jede Zahl wird gegen den Rechenkern geprüft; der Vertriebs-Agent liest die Marktlage mit | umgesetzt |
+| F95 | Analyse | Marktlage mit Chancen-Score auf der Seite des Agenten und unter „Marktdaten“ je Region, live | umgesetzt |
 
 > [!note] Stand 29.10.2026, abends
 > F31 bis F35, F50 und F73 sind mit [Pull Request #2](https://github.com/lukasbosser-cmyk/hostwisedemo/pull/2) seit dem 29.10.2026 in der engine.
 
 ## 5 Produktdaten (Datenmodell)
 
-Alle Daten liegen in 14 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
+Alle Daten liegen in 16 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `agents`, an der Verbindungen, Wissen, Leitplanken, Freigaben und Aktivitäten hängen. Felder mit „neu“ kommen mit Migration 0005 dazu.
 
 | Tabelle | Was sie speichert | Wichtige Felder | Hängt an |
 | --- | --- | --- | --- |
@@ -166,13 +167,16 @@ Alle Daten liegen in 14 Tabellen in Supabase; im Mittelpunkt steht die Tabelle `
 | `market_events` | Großveranstaltungen | Name, Art, Datum, Größe, Quelle | `market_regions` |
 | `lead_assessments` | Einschätzung des Vertriebs-Agenten je Anfrage, nur intern | heiß, warm oder kalt, Produkt, Rückruf, Grund, nächster Schritt | `leads` |
 | `ad_campaigns` | Meta-Anzeigen des Vertriebs-Agenten | Überschrift, Text, Button, Region, Zielgruppe, Anlass, Tagesbudget, Laufzeit, Stand (Entwurf, freigegeben, zurückgegeben, läuft, beendet) | `approvals`, `market_regions` |
+| `products` | Preismodelle: Kurz-Check, Quick-Check, Komplett-Analyse, Monitor | Name, Preis, Abrechnung, Leitfrage, Gliederung, Mindest-Mehrertrag, aktiv | – |
+| `orders` | Bestellungen der bezahlten Reports | Produkt, Stand (neu bis beendet), Preis, Angaben aus dem Formular, Monitor-Rhythmus, nächster Bericht | `leads`, `products` |
+| `market_analyses` | Marktlage des Analyse-Agenten je Region, nur intern | Chancen-Score, Kurzfassung, Befunde (Chance, Risiko, Datenlücke; für wen), Zahlen des Rechenkerns, Stand der Marktdaten | `market_regions` |
 
 **Zugriffsregeln**
 
 - Jede Tabelle hat Row Level Security: Lesen und Schreiben darf nur, wer mit einer E-Mail aus `admins` angemeldet ist (Prüfung über `is_admin()`).
 - n8n schreibt mit einem Server-Schlüssel, der nur in n8n hinterlegt ist. Im Code liegt nur der öffentliche Schlüssel.
 - Live-Updates laufen über Supabase Realtime für `approvals` und `activity`, mit Migration 0005 auch für Agenten, Leitplanken, Wissen und Verbindungen, mit 0011 auch für Einschätzungen und Anzeigen.
-- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent.
+- Jede neue Funktion bringt eine nummerierte Migration in `supabase/migrations/` mit, die auch auf das Projekt angewendet wird. Bisher: 0001 Grundschema, 0002 Startdaten, 0003 Anfragen, 0004 Live-Updates, 0005 Agenten-Einstellungen, 0006 bis 0010 Marktdaten, 0011 Vertriebs-Agent, 0012 bis 0014 Report-Agent (Produkte, Bestellungen, Grafiken), 0015 Kennzahlen im Cockpit, 0016 Bereinigung falscher Ausstattungsanteile, 0018 Analyse-Agent.
 
 ## 6 Agenten-Architektur
 
@@ -198,7 +202,7 @@ Jeder Agent ist ein fester Ablauf in n8n, der seine Einstellungen aus der engine
 | Vertrieb | Anfragen einschätzen und Meta-Anzeigen vorschlagen; später Anzeigen schalten und Rückrufe buchen | Zeitplan (täglich 7 Uhr, Anzeigen einmal pro Woche) | in Arbeit |
 | Marketing | Beiträge, Newsletter und Texte für die Landingpage entwerfen | Zeitplan | geplant |
 | Marktdaten | Preise und Belegung von Airbnb und Booking.com sowie Großveranstaltungen sammeln, über Firecrawl | Zeitplan (1. jedes Monats), Auftrag vom Report-Agenten | umgesetzt |
-| Analyse | Saisonpreise, Marktvergleich und hostwise-Score berechnen | Auftrag vom Report-Agenten | geplant |
+| Analyse | Marktlage je Region: Preise, Spanne, Lücken, Chancen-Score; liefert dem Vertrieb Anlässe und Botschaften. Läuft ohne Freigabe, weil nichts an Kunden geht | Zeitplan (täglich 6:30, nur bei neuen Marktdaten), Auftrag anderer Agenten | umgesetzt |
 | Support und Monitor | Fragen beantworten; die Monitor-Berichte schreibt seit 30.10.2026 der Report-Agent | E-Mail, Zeitplan | geplant |
 
 Bewertungen, Fotos, Buchhaltung und Google Ads stehen als „verfügbar“ in der engine und lassen sich dort mit dem Assistenten anbinden, sobald ihr Ablauf in n8n steht.
@@ -282,17 +286,36 @@ Der Demonstrator ist abgenommen, wenn T1 bis T12 bestanden sind; T7 bis T10 prü
 | --- | --- | --- | --- | --- |
 | T1 | Mit einer Admin-Adresse anmelden | Cockpit erscheint mit Namen in der Begrüßung | M1 | offen |
 | T2 | Mit einer fremden Adresse anmelden | Zurück zum Login mit dem Hinweis „kein Zugang“ | M1 | offen |
-| T3 | Ohne Login `/freigaben` aufrufen | Weiterleitung zum Login | M1 | offen |
+| T3 | Ohne Login `/freigaben` aufrufen | Weiterleitung zum Login | M1 | bestanden |
 | T4 | Kurz-Check-Formular ausfüllen | Wenige Minuten später: neue Freigabe, Hinweis, Zähler +1, der Report-Agent pulsiert im Engine-Kern | M5, M8 | offen |
-| T5 | Den neuen Kurz-Check öffnen | Saisonpreis-Tabelle, Marktvergleich, höchstens drei Tipps, Prüf-Hinweis mit Rückruf-Angebot | M5 | offen |
+| T5 | Den neuen Kurz-Check öffnen | Saisonpreis-Tabelle, Marktvergleich, höchstens drei Tipps, Prüf-Hinweis mit Rückruf-Angebot | M5 | bestanden |
 | T6 | Kurz-Check freigeben | Verschwindet aus der Liste, Aktivität erscheint, in der Datenbank stehen Stand, Name und Zeit | M4 | offen |
 | T7 | Eine Leitplanke für den Report-Agenten anlegen, dann T4 wiederholen | Der neue Kurz-Check hält sich an die neue Regel | M6 | offen |
 | T8 | Agent pausieren und Seite neu laden; zweiter Admin hat die Seite offen | Agent bleibt pausiert; beim zweiten Admin ändert sich der Status ohne Neuladen | M3 | offen |
 | T9 | Wissensquelle hinzufügen und Seite neu laden | Quelle steht beim Agenten und auf der Seite Wissen | M3 | offen |
 | T10 | Kurz-Check aus T4 freigeben | Der Vermieter bekommt ihn per E-Mail | M7 | offen |
-| T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | offen |
-| T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | offen |
-| T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | offen |
+| T11 | Alle Seiten am Handy bedienen | Alles erreichbar, kein seitliches Scrollen | M9 | bestanden |
+| T12 | engine ohne Zugangsdaten starten | Demo-Modus mit Beispieldaten, ohne Login | NFA | bestanden |
+| T13 | Nach T4 den Vertriebs-Agenten in n8n starten, dann die Seite des Agenten öffnen | Die Anfrage steht mit heiß, warm oder kalt und Grund da; unter „Freigaben“ liegen Anzeigen-Vorschläge mit höchstens 40 € am Tag | W1 | bestanden |
+| T15 | Den Analyse-Agenten in n8n starten, dann die Seite des Agenten und „Marktdaten“ öffnen | Für jede Region mit Marktdaten steht die Marktlage mit Chancen-Score, Rechenweg und 3 bis 5 Befunden; jede Zahl findet sich im Rechenkern | F93–F95 | bestanden |
+
+**Testlauf am 30.10.2026 (Claude, ohne eigenen Login):** 5 von 13 bestanden, 4 zur Hälfte geprüft, 4 offen. Was nur mit einem Admin-Login im Browser geht, steht in der letzten Spalte. Einzelheiten in [[Testprotokoll]].
+
+| Nr. | Was geprüft wurde | Was noch fehlt |
+| --- | --- | --- |
+| T1 | Lukas hat sich am 29.10. um 22:36 Uhr angemeldet; die Begrüßung nimmt seit 30.10. den Namen aus der Admin-Liste | Mit Oskar und Maximilian wiederholen, sobald ihre Konten angelegt sind |
+| T2 | Der Hinweis „Dieses Konto ist kein Admin der hostwise engine.“ erscheint; eine fremde Adresse bekommt aus der Datenbank keine Zahlen | Mit einem echten Konto, das nicht auf der Admin-Liste steht |
+| T3 | Ohne Login leiten `/`, `/freigaben`, `/daten` und `/report/…` auf `/login` | – |
+| T4 | Anfrage von Nils (München) um 10:39:37 Uhr, Freigabe 40 Sekunden später, Eintrag im Live-Feed | Hinweis, Zähler +1 und Puls im Engine-Kern im Browser ansehen |
+| T5 | Kurz-Check für Nils: Saisontabelle, Marktvergleich, genau 3 Tipps, Prüf-Hinweis und Rückruf-Angebot | – |
+| T6 | Zurückgeben speichert Stand, Name und Zeit und erscheint als Aktivität (drei Kurz-Checks am 30.10. um 01:45 Uhr) | Einmal wirklich freigeben; das ist noch nie passiert |
+| T7 | – | Noch keine Leitplanke über die engine angelegt |
+| T8 | – | Noch kein Agent über die engine pausiert; braucht zwei Admins gleichzeitig |
+| T9 | – | Noch keine Wissensquelle über die engine hinzugefügt |
+| T10 | – | E-Mail-Versand (M7) ist noch nicht gebaut |
+| T11 | Alle 10 Seiten bei 360 px (Handy) und 1366 px (Laptop) ohne seitliches Scrollen und ohne Fehler | – |
+| T12 | Ohne Zugangsdaten startet der Demo-Modus, alle Seiten laden ohne Login | – |
+| T13 | Anfrage „Lukas Bosser“ als warm mit Quick-Check und Grund eingeschätzt; 3 Anzeigen mit 15, 15 und 10 € am Tag liegen unter „Freigaben“ | – |
 
 ## 11 Zeitplan und offene Punkte
 
@@ -327,7 +350,7 @@ Nach dem Pitch folgen laut Kursplan Business Model mit Go/No-Go am 12.01.2027 un
 - [ ] E-Mail-Versand nach der Freigabe bauen (M7): Absender-Adresse und Versanddienst festlegen
 - [ ] Datenschutzhinweis ins Formular aufnehmen und Löschfrist für Anfragen festlegen
 - [ ] Klären, ob die Verarbeitung von Kundendaten über n8n und Claude einen Vertrag zur Auftragsverarbeitung braucht und wie riskant das Auslesen von Airbnb und Booking.com ist (AGB, Datenbankrecht)
-- [ ] Kennzahlen im Cockpit aus echten Daten berechnen (M2)
+- [x] Kennzahlen im Cockpit aus echten Daten berechnen (M2)
 - [x] Test-Anfragen „Monika Testkundin“ aus `leads` löschen
 
 Siehe auch: [[Entscheidungen]], [[Kursplan und Termine]], [[hostwise engine]].
