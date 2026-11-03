@@ -1,6 +1,6 @@
 ---
 tags: [technik, konten, werkzeuge]
-stand: 2026-10-30
+stand: 2026-11-03
 ---
 
 # Tools und Konten
